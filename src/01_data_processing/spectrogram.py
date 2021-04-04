@@ -8,6 +8,9 @@ import numpy as np
 from librosa import display as ld
 from IPython import display as ipd
 from sklearn.preprocessing import StandardScaler, MinMaxScaler
+
+import joblib
+sys.modules['sklearn.externals.joblib'] = joblib
 from sklearn.externals.joblib import load, dump
 
 sys.path += ['src/00_utils']
