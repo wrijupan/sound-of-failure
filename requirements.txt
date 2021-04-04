@@ -13,3 +13,4 @@ numpy==1.19.5
 ipython==7.16.1
 python-dotenv==0.17.0
 scikit_learn==0.24.1
+streamlit==0.79.0
