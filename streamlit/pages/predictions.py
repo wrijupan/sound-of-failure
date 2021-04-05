@@ -27,7 +27,8 @@ import plotly_visualization as plotly_viz
 # Tensorflow setup
 ##########################################################
 
-import tensorflow.compat.v1 as tf
+import tensorflow as tf
+#import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 tf.compat.v1.disable_eager_execution()
 
