@@ -19,13 +19,13 @@ import tensorflow as tf
 #tf.disable_v2_behavior()
 tf.compat.v1.disable_eager_execution()
 
-config = tf.ConfigProto(
+"""config = tf.ConfigProto(
     device_count={'CPU': 2},
     intra_op_parallelism_threads=1,
     allow_soft_placement=True
-)
-session = tf.compat.v1.Session(config=config)
-tf.compat.v1.keras.backend.set_session(session)
+)"""
+#session = tf.compat.v1.Session(config=config)
+#tf.compat.v1.keras.backend.set_session(session)
 
 
 ##########################################################
@@ -146,9 +146,9 @@ def build_body(body):
     # Subsamle Mel spectrograms
     ##########################################################
     # Find original and reconstrcuted subsamples of spectrogram
-    with session.as_default():
-        with session.graph.as_default():
-            orig, decoded = eval.decode_spectrogram(saved_model,
+    #with session.as_default():
+    #    with session.graph.as_default():
+    orig, decoded = eval.decode_spectrogram(saved_model,
                                                     saved_scaler,
                                                     DIM,
                                                     STEP,
