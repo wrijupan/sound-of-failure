@@ -126,15 +126,15 @@ def build_body(body):
         with session.as_default():
             with session.graph.as_default():
         
-        	fig = plotly_viz.make_eval_visualisation(mel_file, 
-                                                        saved_model, 
-                                                        saved_scaler,
-                                                        reco_loss_train, 
-                                                        DIM, 
-                                                        STEP, 
-                                                        THRES_RANGE, 
-                                                        REF_RANGE, 
-                                                        as_images=True)
+                    fig = plotly_viz.make_eval_visualisation(mel_file,
+                                                                saved_model,
+                                                                saved_scaler,
+                                                                reco_loss_train,
+                                                                DIM,
+                                                                STEP,
+                                                                THRES_RANGE,
+                                                                REF_RANGE,
+                                                                as_images=True)
         body.plotly_chart(fig)
     
     

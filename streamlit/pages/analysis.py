@@ -148,7 +148,7 @@ def build_body(body):
     # Find original and reconstrcuted subsamples of spectrogram
     with session.as_default():
         with session.graph.as_default():
-    		orig, decoded = eval.decode_spectrogram(saved_model,
+            orig, decoded = eval.decode_spectrogram(saved_model,
                                                     saved_scaler,
                                                     DIM,
                                                     STEP,
