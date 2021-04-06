@@ -27,18 +27,18 @@ import plotly_visualization as plotly_viz
 # Tensorflow setup
 ##########################################################
 
-import tensorflow as tf
-#import tensorflow.compat.v1 as tf
-#tf.disable_v2_behavior()
+#import tensorflow as tf
+import tensorflow.compat.v1 as tf
+tf.disable_v2_behavior()
 tf.compat.v1.disable_eager_execution()
 
-"""config = tf.ConfigProto(
+config = tf.ConfigProto(
     device_count={'CPU': 2},
     intra_op_parallelism_threads=1,
     allow_soft_placement=True
 )
 session = tf.compat.v1.Session(config=config)
-tf.compat.v1.keras.backend.set_session(session)"""
+tf.compat.v1.keras.backend.set_session(session)
 
 ##########################################################
 # Load config files
@@ -123,10 +123,10 @@ def build_body(body):
     body.subheader("2. Predict Reconstruction Error")
     show_results = st.checkbox('Show Results')
     if show_results:
-        #with session.as_default():
-        #    with session.graph.as_default():
+        with session.as_default():
+            with session.graph.as_default():
         
-        fig = plotly_viz.make_eval_visualisation(mel_file, 
+        	fig = plotly_viz.make_eval_visualisation(mel_file, 
                                                         saved_model, 
                                                         saved_scaler,
                                                         reco_loss_train, 
