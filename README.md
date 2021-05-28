@@ -22,16 +22,18 @@ An AI solution to reduce industrial downtime by diagnosing the failure of machin
 
 ### Methods Used
 
-**Data preprocessing:** The sound problem is converted to a computer vision problem by converted the sound to its image representation (i.e. Mel spectrograms). The data processing steps include generating Mel spectrograms, standardization, chunking the spectrograms to smaller blocks for generating training and validation data batches.
+**Data preprocessing:** The sound problem is converted to a computer vision problem by converted the sound to its image representation (i.e. Mel spectrograms). The data processing steps include generating Mel spectrograms, standardization, chunking the spectrograms to smaller blocks for generating training, validation and test data batches.
 
-**Machine Learning:** In general, only machine sounds from a normal state of an instrument will be available, i.e. the algorithm will not know beforehand how an abnormal sound looks like. So the training would be unsupervised using only normal sound data. Then during validation when the algorithm encounters an abnormal sound, it will identify that as an outlier.
+**Deep Learning Acoustic Anomaly Detection:** In general, only machine sounds from a normal state of a machine will be available, i.e. the algorithm will not know beforehand how a broken machine sounds looks like. Our algorithm can diagnose broken machine sounds without knowing a-priori about a broken sound pattern.
 
-The approaches that is used are (under active development, the results will appear very very soon here!):
+Our models are built on simple principles - we feed only normal machine sounds as input to an Autoencoder architecture (a Deep Neural Network with an Encoder, a Decoder and a bottleneck). The Autoencoder is trained to reconstruct back normal sounds with a high accuracy (low reconstruction error). When an abnormal machine sound is fed as input to a trained Autoencoder for reconstructing normal machine sounds, the reconstructed output has a higher reconstruction error. By thresholding on the reconstructing error, we can diagnose broken machine sounds as acoustic anomalies.
+
+We used three types of Autoencoders:
 * Convolution Autoencoder
 * Variational Autoencoder
 * LSTM
-* Convolution LSTM
-* Transfer Learning models for feature extraction and using anomaly detection models on the extracted features
+
+Variational Autoencoder is our best model in terms of its speed and accuracy.
 
 ### Technologies
 
@@ -42,16 +44,9 @@ The approaches that is used are (under active development, the results will appe
 * Scikit-learn
 * etc.
 
-## Getting Started
 
-0. Get the raw data from... (TBC)
 
-1. Clone this repo (for help see this [tutorial](https://help.github.com/articles/cloning-a-repository/)).
-2. cd sound-of-failure; mkdir data
-3. ...
-4. ...
-
-Project Organization
+## Project Organization
 ------------
 
     ├── LICENSE
@@ -62,8 +57,6 @@ Project Organization
     │
     ├── conf                     <- (Directory) Configuration files
     │
-    ├── data                     <- (Directory) Processed data
-    │   └── mel_spectrograms     <- Un-scaled Mel Spectrograms, 1 per audio file
     │
     ├── docs                     <- (Directory) A default Sphinx project; see sphinx-doc.org for details (TBC)
     │
@@ -72,12 +65,6 @@ Project Organization
     ├── notebooks                <- (Directory) Jupyter notebooks. Naming convention is the creator's initials,
     │                               a number for ordering (typically the date), and a short `-` delimited description.
     │
-    ├── references               <- (Directory) Reading material can be saved here.
-    │
-    ├── outputs                  <- (Directory) Model outputs, material for reporting (e.g. tabels, histograms, etc.)
-    │   └── figures              <- Generated graphics and figures to be used in reporting
-    │
-    ├── TEST                     <- (Directory) Used for private experimentation
     |
     └── src                      <- (Directory) Source code for use in this project.
         ├── __init__.py          <- Makes src a Python module
