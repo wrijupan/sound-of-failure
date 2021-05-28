@@ -18,7 +18,7 @@ An AI solution to reduce industrial downtime by diagnosing the failure of machin
 
 **The proposed solution:** The idea is to diagnose machine faillure using their acoustic footprint over time. A machine will produce a different acoustic signature in its abnormal state compared to its normal state. An algorithm should be able to differentiate between the two sounds.
 
-**The dataset:** Until recently it was not possible to develop solutions outside-in, because there was no publicly available industry data. This has changed in September 2019 when Hitachi, Ltd. released the first of its kind dataset. It contains ca. 100GB of wav files with normal and abnormal sounds of four different types of machines (valves, pumps, fans and slide rails), mixed with their industrial environment background noise. 
+**The dataset:** In September 2019 when Hitachi, Ltd. released the [first of its kind dataset](https://zenodo.org/record/3384388#.YLCh2zYzaAw) containing ca. 100GB of wav files with normal and abnormal sounds from real-world industrial machines
 
 ### Methods Used
 
