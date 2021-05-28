@@ -14,26 +14,42 @@ An AI solution to reduce industrial downtime by diagnosing the failure of machin
 
 ## Project Description
 
-**The problem:** Industries experience an average downtime of ~800 hours/year. The average cost of downtime can be as high as ~$20,000 per hour! Often a major cause of downtime is malfunctioning machines. During downtime, the overhead operating costs keeps growing without a significant increase in productivity. A survey in 2017 had found that 70% of companies cannot estimate when an equipment starts malfunctioning and only realise when it’s too late. If malfunctions can be detected early, downtime costs can be drastically reduced.
+**The problem:** Industries experience an average downtime of ~800 hours/year. The average cost of downtime can be as high as ~$20,000 per hour! Often a major cause of downtime is malfunctioning machines. Machine malfunctions often comes unplanned and in a large number of cases, the industries lack in-house expertise to detect such malfunctions before it is too late. If machine malfunctions can be detected early, downtime costs can be drastically reduced.
 
-**The proposed solution:** The idea is to diagnose machine faillure using their acoustic footprint over time. A machine will produce a different acoustic signature in its abnormal state compared to its normal state. An algorithm should be able to differentiate between the two sounds.
+**The proposed solution:** The idea is to diagnose machine failures using their acoustic footprint over time. A machine will produce a different acoustic signature in its abnormal state compared to its normal state. An algorithm should be able to differentiate between the two sounds.
 
 **The dataset:** In September 2019 when Hitachi, Ltd. released the [first of its kind dataset](https://zenodo.org/record/3384388#.YLCh2zYzaAw) containing ca. 100GB of wav files with normal and abnormal sounds from real-world industrial machines
 
-### Methods Used
+### Model training
 
-**Data preprocessing:** The sound problem is converted to a computer vision problem by converted the sound to its image representation (i.e. Mel spectrograms). The data processing steps include generating Mel spectrograms, standardization, chunking the spectrograms to smaller blocks for generating training, validation and test data batches.
+**Data preprocessing:** We convert the sound problem into a Computer Vision problem by converting machine sounds to their visual representations-Mel spectrograms. The Mel spectrograms are time-frequency heat maps for sounds which can capture well inherent acoustic patterns. 
 
-**Deep Learning Acoustic Anomaly Detection:** In general, only machine sounds from a normal state of a machine will be available, i.e. the algorithm will not know beforehand how a broken machine sounds looks like. Our algorithm can diagnose broken machine sounds without knowing a-priori about a broken sound pattern.
+**Deep Learning Acoustic Anomaly Detection:** We use an unsupervised Deep Learning approach to diagnose abnormal machine sounds. I.e. for training our models, we only use the sounds from normally working machines.
 
-Our models are built on simple principles which can be visually seen here ![](streamlit/images/anomaly_detection_video.gif)- we feed only normal machine sounds as input to an Autoencoder architecture (a Deep Neural Network with an Encoder, a Decoder and a bottleneck). The Autoencoder is trained to reconstruct back normal sounds with a high accuracy (low reconstruction error). When an abnormal machine sound is fed as input to a trained Autoencoder for reconstructing normal machine sounds, the reconstructed output has a higher reconstruction error. By thresholding on the reconstructing error, we can diagnose broken machine sounds as acoustic anomalies.
+Our models are built on simple principles which can be visually seen here ![](streamlit/images/anomaly_detection_video.gif)- we feed only normal machine sounds as input to an Autoencoder architecture (a Deep Neural Network with an Encoder, a Decoder and a bottleneck). The Autoencoder is trained to reconstruct back only normal sounds with a high accuracy (low reconstruction error). When during testing, an abnormal machine sound is fed as input to a trained Autoencoder for generating normal machine sounds, the reconstructed output has a bad reconstruction error. By thresholding on the reconstructing error, we can diagnose broken machine sounds as acoustic anomalies.
 
 We used three types of Autoencoders:
 * Convolution Autoencoder
 * Variational Autoencoder
-* LSTM
+* LSTM Autoencoder
 
 Variational Autoencoder is our best model in terms of its speed and accuracy.
+
+### Results
+
+For testing our trained models, we have built an independent test dataset (not used for training or hyper-parameter optimisation) that contains a mixture of normal and abnormal machine sounds (50:50 i.e. balanced) with the aim that our trained unsupervised model can correctly tag abnormal machine sounds, which it has never seen before, as anomalies. The test dataset is then fed to the Variational Autoencoder (VAE) trained on normal machine sounds.
+
+The VAE works in two stages:
+
+1. It first encodes the input sound/mel-spectrogram into a lower-dimensional latent space, also known as bottleneck (this is the Encoder part of the deep network). 
+
+The figure below shows the latent space representation of normal and abnormal machine sounds in the test dataset. It can be clearly seen that the two sounds sit on different zones of the latent space-hence can be clearly distinguished by our algorithm.
+
+![](streamlit/images/encoded.png)
+
+
+
+2. It then samples a data point from the latent space and reconstructs it back to its original dimension same as the input image/mel-spectrogram. Our VAE is trained to only reconstruct normal machine sounds well.
 
 ### Technologies
 
