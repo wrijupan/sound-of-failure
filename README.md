@@ -48,8 +48,13 @@ The figure below shows the latent space representation of normal and abnormal ma
 ![](streamlit/images/encoded.png)
 
 
+2. It then samples a data point from the latent space and reconstructs it back to its original dimension same as the input image/mel-spectrogram. Since our VAE is trained only on normal machine sounds, the expected result is the following-low reconstruction error on normal test sounds and much higher error on the abnormal test sounds. Plotting histograms of the reconstruction errors (as can be seen on the left-hand-side figure below), clearly the model predicts much higher error on the abnormal sounds, absolutely congruent with our expectations! The predicted reconstruction errors are then used to calculate the area under the ROC curve (Right-hand-side figure below) which gives an accuracy of 97%!
 
-2. It then samples a data point from the latent space and reconstructs it back to its original dimension same as the input image/mel-spectrogram. Our VAE is trained to only reconstruct normal machine sounds well.
+|Histogram of reconstruction error on normal and abnormal machine sounds     |   Area under the ROC curve   | 
+|---------|-----------------|
+| ![](streamlit/images/RecoLoss_NoVal_VAE_6dB_valve_id_00.eps) | ![](streamlit/images/ROC_VAE_6dB_valve_id_00.eps) |
+
+
 
 ### Technologies
 
