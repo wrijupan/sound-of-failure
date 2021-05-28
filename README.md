@@ -52,7 +52,7 @@ The figure below shows the latent space representation of normal and abnormal ma
 
 |Histogram of reconstruction error on normal and abnormal machine sounds     |   Area under the ROC curve   | 
 |---------|-----------------|
-| ![](streamlit/images/RecoLoss_NoVal_VAE_6dB_valve_id_00.eps) | ![](streamlit/images/ROC_VAE_6dB_valve_id_00.eps) |
+| ![](streamlit/images/encoded.png) | ![](streamlit/images/encoded.png) |
 
 
 
